@@ -28,7 +28,7 @@ def random2RGB(rgb_num):
     g=[]
     b=[]
     for i in range(rgb_num+1):               #0~rgb_num
-        if i == 0:   #未知语义用0,0,0的黑色表示
+        if i == 0:   #using black (0,0,0) to represent unknown semantic meanings.      未知语义用0,0,0的黑色表示
             r.append(0)
             g.append(0)
             b.append(0)
@@ -38,7 +38,7 @@ def random2RGB(rgb_num):
         b.append(np.random.randint(256))
     return r,g,b
 
-'''读语义文件'''
+'''reading label file  读语义文件'''
 tsv_sem = pd.read_csv('scannetv2-labels.combined.tsv', sep='\t')
 sem_value_1000 = tsv_sem['id']
 sem_value_1000_index = [i for i in range(len(sem_value_1000))]
@@ -51,7 +51,7 @@ sem_value_1000_dict = dict(zip(sem_value_1000, sem_value_1000_index))
 # for k, v in dict_sem_value.iteritems():
 #     dict_sem_value_modify[k].append(v)
 
-#600多种sem_label对应的随机RGB值
+#generate RGB values for semantic labels. 600多种sem_label对应的随机RGB值
 r_sem,g_sem,b_sem = random2RGB(len(sem_value_1000))      # RGB_sem = [[0,200,0],...,[10,20,10]] 
 
 def ReadImages(filename):
@@ -109,21 +109,14 @@ def depth2xyzl(depth_map,semantic_image,fx,fy,cx,cy,flatten=False,depth_scale=10
         for j in range(0,640):
             #原始的语义标签semantic_image[i][j]: 0~1357
             sem_label = semantic_image[i][j]
-            #投影的语义标签a[i][j]: 0~40
             if sem_value_1000_dict.has_key(sem_label):
                 sem_index = sem_value_1000_dict[sem_label]
             else:
                 sem_index = 0
-            # if sem_label  not in list(sem_value_1000):
-            #     sem_index_in_sem_label_list = 0
-            # else:
-            #     sem_index_in_sem_label_list = list(sem_value_1000).index(sem_label) # 0表示未知语义的物体
             r[i][j] = r_sem[sem_index]
             g[i][j] = g_sem[sem_index]
             b[i][j] = b_sem[sem_index]
 
-    # print(sem_touying[1][320],"第一行最中间")
-    # print(sem_touying[240][250],"第一行最中间")
     new_im = ImagePIL.fromarray(b)     #调用Image库，数组归一化 
     misc.imsave('new_img.jpg', new_im)
     xyzrgbl=np.dstack((x,y,z,r,g,b)) if flatten==False else np.dstack((x,y,z,r,g,b)).reshape(-1,6)
@@ -227,7 +220,7 @@ def CreateBag():#img,imu, bagname, timestamps
             image_message.header.frame_id = header.frame_id
             bag.write('/camera_color', image_message, header.stamp)
 
-            '''写入点云, XYZRGBL'''
+            '''写入点云, XYZRGB'''
             #opencv的色彩读入顺序为BGR
             (B, G, R) = cv2.split(resize_color)
             raw_depth = cv2.imread(imgs_depth[i], -1)
