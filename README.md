@@ -1,5 +1,5 @@
 # scannet2rosbag
-A python2.7 inplementation for converting the Scannet dataset into a rosbag containing depth point clouds(with colors representing the corresponding semantic labels ) and RGB images.
+A python2.7 inplementation for converting the Scannet dataset into a rosbag, which contains depth point clouds(with colors representing the corresponding semantic labels ) and RGB images.
 
 ## Usage
 You need to replace these lines with your own directory:
