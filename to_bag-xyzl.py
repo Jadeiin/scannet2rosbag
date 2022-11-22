@@ -24,7 +24,7 @@ import matplotlib.pyplot as pyplot
 import collections
 
 def random2RGB(rgb_num):   
-    r=[]
+    r=[] 
     g=[]
     b=[]
     for i in range(rgb_num+1):               #0~rgb_num
