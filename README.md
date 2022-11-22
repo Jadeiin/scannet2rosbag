@@ -9,7 +9,7 @@ You need to replace these lines with your own directory:
 ```
 root_dir = "/media/tang/Elements/dataset/scannet/scene0010_00/"
 ```
-2.  [Line 167](https://github.com/BIT-TYJ/scannet2rosbag/blob/ba38694a8e53d99441d0534d701f992d48d81ce5/to_bag-xyzrgbl-600.py#L174)
+2.  [Line 167](https://github.com/BIT-TYJ/scannet2rosbag/blob/f4fe5b264ff6a0ccef0141fb4d27db6232964008/to_bag-xyzl.py#L167)
 ```
 bag = rosbag.Bag("/media/tang/Elements/dataset/scannet/scene_0010_00.bag", 'w')
 ```
