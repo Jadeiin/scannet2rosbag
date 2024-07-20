@@ -20,14 +20,10 @@ import tf
 from PIL import ImageFile
 from PIL import Image as ImagePIL
 
+all_num = 5578
 
 def ReadImages(filename):
     all = []
-    files = os.listdir(filename)
-    all_num = 0
-    for f in sorted(files):
-        if os.path.splitext(f)[1] in [".png"]:
-            all_num = all_num + 1
     for i in range(all_num):
         all.append(filename + str(i) + ".png")
     return all
@@ -35,11 +31,6 @@ def ReadImages(filename):
 
 def ReadRGBImages(filename):
     all = []
-    files = os.listdir(filename)
-    all_num = 0
-    for f in sorted(files):
-        if os.path.splitext(f)[1] in [".jpg"]:
-            all_num = all_num + 1
     for i in range(all_num):
         all.append(filename + str(i) + ".jpg")
     return all
@@ -47,8 +38,8 @@ def ReadRGBImages(filename):
 
 def ReadPose(filename):
     posedata = []
-    for f in sorted(glob(filename + "/*")):
-        data = np.loadtxt(f)
+    for i in range(all_num):
+        data = np.loadtxt(filename + str(i) + ".txt")
         posedata.append(data)
     return posedata
 
